@@ -46,12 +46,24 @@ async function handleEvent(event) {
   }
   
 
+  const displayName = ''
+
+
+  // get name
+  await client.getProfile(event.source.userId)
+  .then((profile) => {
+    displayName = profile.displayName
+  })
+  .catch((err) => {
+    // error handling
+  });
+
   const { data } = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: 'user',
-        content: event.message.text,
+        content:`我是${displayName}，我想問妳${event.message.text}`,
       },
       {
         role: 'system',
