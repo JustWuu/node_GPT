@@ -50,10 +50,11 @@ async function handleEvent(event) {
   // get name
   await client.getProfile(event.source.userId)
   .then((profile) => {
+    console.log(`這裡是get名字api，送出了${event.source.userId}取回了${profile}`)
     displayName = profile.displayName
   })
   .catch((err) => {
-    console.log('errr',err)
+    console.log(`${event.source.userId}這個uid出錯了${err}`)
     // error handling
   });
 
