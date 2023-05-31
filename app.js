@@ -82,6 +82,16 @@ async function handleEvent(event) {
           break
         }
       }
+      case '[人格變更：瘋子]': {
+        if(mod == '[調試模式]'){
+          personality = '瘋癲豆花'
+          console.log(`接受命令：[人格變更：瘋子]`)
+          const echo = { type: 'text', text: 'UID識別正確，於[調試模式]成功變更人格為[瘋子]' };
+          return client.replyMessage(event.replyToken, echo);
+        }else{
+          break
+        }
+      }
       case '[Now]': {
         console.log(`接受命令：[Now]，當前為${mod}、${personality}`)
         const echo = { type: 'text', text: `UID識別正確，當前為${mod}、${personality}` };
