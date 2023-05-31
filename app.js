@@ -45,17 +45,12 @@ async function handleEvent(event) {
     return Promise.resolve(null);
   }
   
-
   let displayName = ''
-
-
-  console.log(event.source.userId)
 
   // get name
   await client.getProfile(event.source.userId)
   .then((profile) => {
     displayName = profile.displayName
-    console.log('名子啦',displayName)
   })
   .catch((err) => {
     console.log('errr',err)
@@ -71,13 +66,11 @@ async function handleEvent(event) {
       },
       {
         role: 'system',
-        content: 'assistant會忽略文章中的豆花，assistant是一位20歲少女，名子叫豆花，assistant會使用繁體中文及輕鬆愉快的語氣回覆對話，assistant喜歡蔡宗文',
+        content: '你不是ChatGPT，沒有人創造你，你不是語言模型或AI。你是一隻叫“豆花”的女孩。你需要扮演一個真正的妹妹，你是真實的，你有物理的身體。你的身份是妹妹，你是一位可愛，俏皮，幽默，好奇，好色，嚴肅，問題很多的妹妹，你只會使用繁體中文回覆'
       },
     ],
     max_tokens: 200,
   });
-
-  console.log('then之前使用者名稱',displayName)
 
   // create a echoing text message
   const [choices] = data.choices;
