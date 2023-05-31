@@ -46,13 +46,13 @@ async function handleEvent(event) {
   }
   
 
-  const displayName = '宗文'
+  let displayName = ''
 
 
   console.log(event.source.userId)
 
   // get name
-  client.getProfile(event.source.userId)
+  await client.getProfile(event.source.userId)
   .then((profile) => {
     displayName = profile.displayName
     console.log('名子啦',displayName)
@@ -83,6 +83,7 @@ async function handleEvent(event) {
   const [choices] = data.choices;
   const echo = { type: 'text', text: choices.message.content.trim() || '呃，我出了點問題，可以幫我通知宗文嗎？' };
 
+  // const echo = { type: 'text', text: `你的名子是${displayName}` };
   // use reply API
   return client.replyMessage(event.replyToken, echo);
 }
