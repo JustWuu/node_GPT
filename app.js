@@ -41,6 +41,7 @@ let mod = '[Product]'
 let personality = '豆花妹妹'
 // '[豆花妹妹]'
 
+let beforeMessage = ''
 
 // 文字輸入後>判斷當前模式>判斷輸入者>依當前模式讀取文字>返回輸出
 
@@ -160,6 +161,8 @@ async function handleEvent(event) {
     message = '繼續'
     systemContent = ''
   }else{
+    // 如果沒有請繼續，會把之前的訊息刪掉
+    beforeMessage =''
     message = `${displayName !==''? `我是${displayName}，`: ''}${message}`
   }
 
@@ -200,6 +203,10 @@ async function handleEvent(event) {
           content:`${message}`,
         },
         {
+          role: 'assistant',
+          content: beforeMessage,
+        },
+        {
           role: 'system',
           content: systemContent
         },
@@ -211,6 +218,7 @@ async function handleEvent(event) {
     const echo = { type: 'text', text: choices.message.content.trim() || '呃，我出了點問題，可以幫我通知宗文嗎？(error:400' };
 
     console.log(`豆花回覆了：${echo.text}`)
+    beforeMessage = echo.text
 
     // use reply API
     return client.replyMessage(event.replyToken, echo);
