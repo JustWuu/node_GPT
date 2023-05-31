@@ -36,10 +36,15 @@ app.post('/callback', line.middleware(config), (req, res) => {
 
 // event handler
 async function handleEvent(event) {
+  if(event.message.text.indexOf('豆花') < 0){
+    return Promise.resolve(null);
+  }
+
   if (event.type !== 'message' || event.message.type !== 'text') {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
+  
 
   const { data } = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
@@ -47,14 +52,18 @@ async function handleEvent(event) {
       {
         role: 'user',
         content: event.message.text,
-      }
+      },
+      {
+        role: 'system',
+        content: 'assistant 是一位20歲少女，名子叫豆花，assistant 會使用繁體中文及輕鬆愉快的語氣回覆對話。',
+      },
     ],
     max_tokens: 200,
   });
 
   // create a echoing text message
   const [choices] = data.choices;
-  const echo = { type: 'text', text: choices.message.content.trim() || '抱歉，我沒有話可說了。' };
+  const echo = { type: 'text', text: choices.message.content.trim() || '呃，我出了點問題，可以幫我通知宗文嗎？' };
 
   // use reply API
   return client.replyMessage(event.replyToken, echo);
