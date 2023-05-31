@@ -57,8 +57,10 @@ async function handleEvent(event) {
     // error handling
   });
 
+  console.log(`發言者是${displayName}`)
+
   if(displayName == '小洛'){
-    console.log('發言者是小洛')
+    console.log('進入特例回覆法')
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
@@ -81,7 +83,7 @@ async function handleEvent(event) {
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }else{
-    console.log(`發言者是${displayName}`)
+    console.log('進入一般回覆法')
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
