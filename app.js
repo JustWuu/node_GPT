@@ -43,9 +43,9 @@ async function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-  if(event.message.text.indexOf('豆花') < 0){
-    return Promise.resolve(null);
-  }
+  // if(event.message.text.indexOf('豆花') < 0){
+  //   return Promise.resolve(null);
+  // }
 
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
@@ -54,10 +54,10 @@ async function handleEvent(event) {
       role: 'user',
       content: event.message.text,
       },
-      {
-        role: 'system',
-        content: '你好，我是機器人',
-      },
+      // {
+      //   role: 'system',
+      //   content: '你好，我是機器人',
+      // },
     ],
     max_tokens: 200,
   });
