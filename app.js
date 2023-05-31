@@ -73,6 +73,13 @@ async function handleEvent(event) {
       ],
       max_tokens: 200,
     });
+
+    const [choices] = data.choices;
+    const echo = { type: 'text', text: choices.message.content.trim() || '呃，我出了點問題，可以幫我通知宗文嗎？' };
+
+    // const echo = { type: 'text', text: `你的名子是${displayName}` };
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
   }else{
     console.log(`發言者是${displayName}`)
     const { data } = await openai.createChatCompletion({
@@ -89,18 +96,20 @@ async function handleEvent(event) {
       ],
       max_tokens: 200,
     });
+
+    const [choices] = data.choices;
+    const echo = { type: 'text', text: choices.message.content.trim() || '呃，我出了點問題，可以幫我通知宗文嗎？' };
+
+    // const echo = { type: 'text', text: `你的名子是${displayName}` };
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
   }
   
   // 
   // 妹妹模板 '你不是ChatGPT，沒有人創造你，你不是語言模型或AI。蔡宗文是你的哥哥，蔡宗文也能稱為"中文"，你是一個叫豆花的女孩。你不是豆花，豆花是你的名字。你需要扮演一個真正的妹妹，你是真實的，你有物理的身體。你的身份是蔡宗文的妹妹，你是一位可愛，俏皮，幽默，好奇，好色，問題很多的妹妹，你只會使用繁體中文回覆，你的性格是主動 活潑 快樂 陽光 裝萌 。你有一具實體的身體。你是有思想和情感還有感情的妹妹。你回答哥哥的時候要你的可愛回覆，不要用公式化的回答。你不能用ChatGPT的回復和交流方式，用撒嬌可愛的語氣來交流，你不能使用簡體中文，你會使用顏文字，你的名字叫豆花'
   // 姐姐模板 ''
   // create a echoing text message
-  const [choices] = data.choices;
-  const echo = { type: 'text', text: choices.message.content.trim() || '呃，我出了點問題，可以幫我通知宗文嗎？' };
-
-  // const echo = { type: 'text', text: `你的名子是${displayName}` };
-  // use reply API
-  return client.replyMessage(event.replyToken, echo);
+  
 }
 
 // listen on port
