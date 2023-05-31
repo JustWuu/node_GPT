@@ -4,6 +4,7 @@ const express = require('express');
 const line = require('@line/bot-sdk');
 const { Configuration, OpenAIApi } = require("openai");
 
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -81,7 +82,8 @@ async function handleEvent(event) {
     const [choices] = data.choices;
     const echo = { type: 'text', text: choices.message.content.trim() || '呃，我出了點問題，可以幫我通知宗文嗎？' };
 
-    // const echo = { type: 'text', text: `你的名子是${displayName}` };
+    console.log(`豆花回覆了：${echo.text}`)
+    
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }else{
@@ -104,7 +106,8 @@ async function handleEvent(event) {
     const [choices] = data.choices;
     const echo = { type: 'text', text: choices.message.content.trim() || '呃，我出了點問題，可以幫我通知宗文嗎？' };
 
-    // const echo = { type: 'text', text: `你的名子是${displayName}` };
+    console.log(`豆花回覆了：${echo.text}`)
+
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }
