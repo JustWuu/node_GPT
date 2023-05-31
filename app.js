@@ -57,7 +57,7 @@ async function handleEvent(event) {
         return client.replyMessage(event.replyToken, echo);
       }
       case '[終止調試]': {
-        mod = '[調試模式]'
+        mod = '[Product]'
         console.log(`接受命令：[終止調試]`)
         const echo = { type: 'text', text: 'UID識別正確，終止[調試模式]，目前為[Product]' };
         return client.replyMessage(event.replyToken, echo);
