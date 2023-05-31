@@ -158,6 +158,7 @@ async function handleEvent(event) {
   
   if(event.message.text.indexOf('請繼續') >= 0){
     message = '繼續'
+    systemContent = ''
   }else{
     message = `${displayName !==''? `我是${displayName}，`: ''}${message}`
   }
