@@ -57,7 +57,7 @@ async function handleEvent(event) {
     // error handling
   });
 
-  if(displayName = '小洛'){
+  if(displayName == '小洛'){
     console.log('發言者是小洛')
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
