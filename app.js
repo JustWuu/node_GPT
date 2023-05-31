@@ -11,8 +11,8 @@ const openai = new OpenAIApi(configuration);
 
 // create LINE SDK config from env variables
 const config = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET,
+  channelAccessToken: process.env.LIN_BOT_TOKEN,
+  channelSecret: process.env.LIN_BOT_SECRET,
 };
 
 // create LINE SDK client
