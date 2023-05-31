@@ -50,10 +50,10 @@ async function handleEvent(event) {
 
 
   // get name
-  await client.getProfile(event.source.userId)
+  client.getProfile(event.source.userId)
   .then((profile) => {
     displayName = profile.displayName
-    console.log('使用者名稱',displayName)
+    console.log('名子啦',displayName)
   })
   .catch((err) => {
     // error handling
