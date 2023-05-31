@@ -58,6 +58,7 @@ async function handleEvent(event) {
   });
 
   console.log(`發言者是${displayName}`)
+  console.log(`他說了${event.message.text}`)
 
   if(displayName == '小洛'){
     console.log('進入特例回覆法')
