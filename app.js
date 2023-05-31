@@ -53,6 +53,7 @@ async function handleEvent(event) {
   await client.getProfile(event.source.userId)
   .then((profile) => {
     displayName = profile.displayName
+    console.log('使用者名稱',displayName)
   })
   .catch((err) => {
     // error handling
@@ -72,6 +73,8 @@ async function handleEvent(event) {
     ],
     max_tokens: 200,
   });
+
+  console.log('then之前使用者名稱',displayName)
 
   // create a echoing text message
   const [choices] = data.choices;
