@@ -46,8 +46,10 @@ async function handleEvent(event) {
   }
   
 
-  const displayName = ''
+  const displayName = '宗文'
 
+
+  console.log(event.source.userId)
 
   // get name
   client.getProfile(event.source.userId)
@@ -56,6 +58,7 @@ async function handleEvent(event) {
     console.log('名子啦',displayName)
   })
   .catch((err) => {
+    console.log('errr',err)
     // error handling
   });
 
@@ -64,7 +67,7 @@ async function handleEvent(event) {
     messages: [
       {
         role: 'user',
-        content:`我是${displayName}，我想問妳${event.message.text}`,
+        content:`我是${displayName}，${event.message.text}`,
       },
       {
         role: 'system',
