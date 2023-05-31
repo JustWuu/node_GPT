@@ -82,6 +82,11 @@ async function handleEvent(event) {
           break
         }
       }
+      case '[Now]': {
+        console.log(`接受命令：[Now]，當前為${mod}、${personality}`)
+        const echo = { type: 'text', text: `UID識別正確，當前為${mod}、${personality}` };
+        return client.replyMessage(event.replyToken, echo);
+      }
       default: {
         break;
       }
