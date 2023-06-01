@@ -170,37 +170,38 @@ async function handleEvent(event) {
 
   // 豆花，搜尋創世神
 
-  // 要求繼續上文
+ 
   if(event.message.text.indexOf('請繼續') >= 0){
+    // 要求繼續上文
     message = '繼續'
     systemContent = ''
   }else if(event.message.text.indexOf('搜尋') >= 0){
+    // 搜尋功能
     const keywordReg = new RegExp('搜尋')
-    const keyword = event.message.text.replace(keywordReg, "")
-    let message = ''
+    const keyword = message.replace(keywordReg, "")
 
-    getAPI(encodeURI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&lr=lang_zh-TW&key=AIzaSyB0SqMPU7jVSJOR34vzK9nhVrSQxuJS62I&cx=e261af4da977e488b&q=${keyword}`))
-    .then(function (response) { 
-      console.log(response);
-      message = response
-      return response
+    getAPI(encodeURI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&lr=lang_zh-TW&num=5&key=AIzaSyB0SqMPU7jVSJOR34vzK9nhVrSQxuJS62I&cx=e261af4da977e488b&q=${keyword}`))
+    .then((response) => { 
+
+      const result = ['哥哥～以下是我找到的資料\n']
+
+      response.map(item=>{
+        result.push(`${item.title}\n`)
+        result.push(`${item.link}\n`)
+      })
+      console.log(result)
+
+      const echo = { type: 'text', text: result || '呃，我出了點問題，可以幫我通知宗文嗎？(error:204)' };
+      console.log(`豆花回覆了：${echo.text}`)
+      // use reply API
+      return client.replyMessage(event.replyToken, echo);
     })
     .catch(function (error) {
         console.log(error);
         return error
     })
-    
-    console.log(message)
-
-    const echo = { type: 'text', text: message || '呃，我出了點問題，可以幫我通知宗文嗎？(error:204)' };
-
-    console.log(`豆花回覆了：${echo.text}`)
-
-    // use reply API
-    return client.replyMessage(event.replyToken, echo);
-
-
   }else{
+    // GPT
     // 如果沒有請繼續，會把之前的訊息刪掉
     beforeMessage =''
     message = `${displayName !==''? `我是${displayName}，`: ''}${message}`
