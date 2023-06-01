@@ -187,7 +187,6 @@ async function handleEvent(event) {
         result.push(`${response[x].link}\n`)
       }
       const resultMessage = result.join('')
-      console.log('整理完畢',resultMessage)
 
       const echo = { type: 'text', text: resultMessage || '呃，我出了點問題，可以幫我通知宗文嗎？(error:204)' };
       console.log(`豆花回覆了：${echo.text}`)
@@ -201,6 +200,7 @@ async function handleEvent(event) {
         console.log(error);
         return error
     })
+    return
   }else{
     // GPT ==================================================================================================
     // 如果沒有請繼續，會把之前的訊息刪掉
