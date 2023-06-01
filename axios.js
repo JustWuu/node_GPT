@@ -2,7 +2,7 @@ const { async } = require('@firebase/util');
 const axios = require('axios'); // 引入套件
 
 async function getAPI(url){
-    axios.get('url/users')
+    await axios.get(url)
     .then(function (response) { 
         // 處理成功後要做的事
         console.log(response);
