@@ -217,6 +217,11 @@ async function handleEvent(event) {
       return client.replyMessage(event.replyToken, echo);
     })
     return
+  }else if(personality == '魅魔豆花'){
+    // GPT ==================================================================================================
+    // 如果沒有請繼續，會把之前的訊息刪掉
+    beforeMessage =''
+    message = `${message}`
   }else{
     // GPT ==================================================================================================
     // 如果沒有請繼續，會把之前的訊息刪掉
