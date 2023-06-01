@@ -177,11 +177,11 @@ async function handleEvent(event) {
   }else if(event.message.text.indexOf('搜尋') >= 0){
     const keywordReg = new RegExp('搜尋')
     const keyword = event.message.text.replace(keywordReg, "")
-    const message = await getAPI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&lr=lang_zh-TW&key=AIzaSyB0SqMPU7jVSJOR34vzK9nhVrSQxuJS62I&cx=e261af4da977e488b&q=${keyword}`)
+    const message = await getAPI(encodeURI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&lr=lang_zh-TW&key=AIzaSyB0SqMPU7jVSJOR34vzK9nhVrSQxuJS62I&cx=e261af4da977e488b&q=${keyword}`))
     
     console.log(message)
 
-    const echo = { type: 'text', text: message || '呃，我出了點問題，可以幫我通知宗文嗎？(error:400)' };
+    const echo = { type: 'text', text: message || '呃，我出了點問題，可以幫我通知宗文嗎？(error:204)' };
 
     console.log(`豆花回覆了：${echo.text}`)
 

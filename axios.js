@@ -1,4 +1,3 @@
-const { async } = require('@firebase/util');
 const axios = require('axios'); // 引入套件
 
 async function getAPI(url){
