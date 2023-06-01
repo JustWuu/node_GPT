@@ -187,14 +187,16 @@ async function handleEvent(event) {
       const result = ['哥哥～以下是我找到的資料\n']
 
       for(let x=0 ; x<response.length ; x++){
-        result.push(`${response[0].title}\n`)
-        result.push(`${response[0].link}\n`)
+        result.push(`${response[x].title}\n`)
+        result.push(`${response[x].link}\n`)
       }
 
-      console.log('整理完畢',result)
+      const resultMessage = result.toString()
+      
+      console.log('整理完畢',resultMessage)
 
 
-      const echo = { type: 'text', text: result || '呃，我出了點問題，可以幫我通知宗文嗎？(error:204)' };
+      const echo = { type: 'text', text: resultMessage || '呃，我出了點問題，可以幫我通知宗文嗎？(error:204)' };
       console.log(`豆花回覆了：${echo.text}`)
       // use reply API
       return client.replyMessage(event.replyToken, echo);
