@@ -1,6 +1,7 @@
 const axios = require('axios'); // 引入套件
 
 // 這個只針對google的搜尋api
+// return 有要求items，所以別的來用確沒items會爆掉
 
 async function getAPI(url){
     return await axios.get(url)
