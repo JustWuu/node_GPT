@@ -116,7 +116,7 @@ async function handleEvent(event) {
   }
 
   // 設定現在時間
-  const day = new Date();
+  const day = new Date('Tue Oct 18 2022 12:00:00 GMT+0800 (Taipei Standard Time)');
   const time = day.getFullYear() +"年"+ (day.getMonth()+1) +"月"+ day.getDate() + "日" + day.getHours()+"點"+ day.getMinutes() +"分"+ day.getSeconds()+ "秒";
   
   console.log('現在時間為：',time)
@@ -138,7 +138,7 @@ async function handleEvent(event) {
   console.log(`他說了${event.message.text}`)
 
   let systemContent = ''
-
+  
   // 定義 *********************************************************************************************************
 
   // 人格 *********************************************************************************************************
@@ -211,7 +211,6 @@ async function handleEvent(event) {
   }
 
   console.log('文字變為',message)
-
   // 洗字 *********************************************************************************************************
 
 
