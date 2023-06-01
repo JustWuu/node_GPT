@@ -167,37 +167,33 @@ async function handleEvent(event) {
   // 刪除
   const reg = new RegExp('豆花')
   let message = event.message.text.replace(reg, "")
-
-  // 豆花，搜尋創世神
-
  
   if(event.message.text.indexOf('請繼續') >= 0){
-    // 要求繼續上文
+    // 要求繼續上文 ==================================================================================================
     message = '繼續'
     systemContent = ''
   }else if(event.message.text.indexOf('搜尋') >= 0){
-    // 搜尋功能
+    // 搜尋功能 ==================================================================================================
     const keywordReg = new RegExp('搜尋')
     const keyword = message.replace(keywordReg, "")
 
-    getAPI(encodeURI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&hl=zh-TW&lr=lang_zh-TW&num=5&key=AIzaSyB0SqMPU7jVSJOR34vzK9nhVrSQxuJS62I&cx=e261af4da977e488b&q=${keyword}`))
+    getAPI(encodeURI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&hl=zh-TW&lr=lang_zh-TW&num=5&key=${process.env.GOOGLE_API_KEY}&cx=${process.env.GOOGLE_API_CX}&q=${keyword}`))
     .then((response) => { 
       console.log('搜尋api取回了',response)
-
       const result = ['哥哥～以下是我找到的資料\n']
 
       for(let x=0 ; x<response.length ; x++){
         result.push(`${response[x].title}\n`)
         result.push(`${response[x].link}\n`)
       }
-
-      const resultMessage = result.toString()
-      
+      const resultMessage = result.join('')
       console.log('整理完畢',resultMessage)
-
 
       const echo = { type: 'text', text: resultMessage || '呃，我出了點問題，可以幫我通知宗文嗎？(error:204)' };
       console.log(`豆花回覆了：${echo.text}`)
+
+      pushMessage(displayName !== '' ? displayName : event.source.userId, event.message.text, echo)
+
       // use reply API
       return client.replyMessage(event.replyToken, echo);
     })
@@ -206,7 +202,7 @@ async function handleEvent(event) {
         return error
     })
   }else{
-    // GPT
+    // GPT ==================================================================================================
     // 如果沒有請繼續，會把之前的訊息刪掉
     beforeMessage =''
     message = `${displayName !==''? `我是${displayName}，`: ''}${message}`
@@ -239,6 +235,8 @@ async function handleEvent(event) {
     const echo = { type: 'text', text: choices.message.content.trim() || '呃，我出了點問題，可以幫我通知宗文嗎？(error:400)' };
 
     console.log(`豆花回覆了：${echo.text}`)
+
+    pushMessage(displayName !== '' ? displayName : event.source.userId, event.message.text, echo)
 
     // use reply API
     return client.replyMessage(event.replyToken, echo);
