@@ -4,7 +4,7 @@ const express = require('express');
 const line = require('@line/bot-sdk');
 const { Configuration, OpenAIApi } = require("openai");
 const pushMessage = require("./firebase.js");
-
+const getAPI = require("./axios.js");
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -168,10 +168,24 @@ async function handleEvent(event) {
   const reg = new RegExp('豆花')
   let message = event.message.text.replace(reg, "")
 
+
   // 要求繼續上文
   if(event.message.text.indexOf('請繼續') >= 0){
     message = '繼續'
     systemContent = ''
+  }else if(event.message.text.indexOf('搜尋') >= 0){
+    const keywordReg = new RegExp('搜尋')
+    const keyword = event.message.text.replace(keywordReg, "")
+    const message = getAPI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&lr=lang_zh-TW&key=AIzaSyB0SqMPU7jVSJOR34vzK9nhVrSQxuJS62I&cx=e261af4da977e488b&q=${keyword}`)
+    
+    const echo = { type: 'text', text: message || '呃，我出了點問題，可以幫我通知宗文嗎？(error:400)' };
+
+    console.log(`豆花回覆了：${echo.text}`)
+
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+
+
   }else{
     // 如果沒有請繼續，會把之前的訊息刪掉
     beforeMessage =''
@@ -195,7 +209,7 @@ async function handleEvent(event) {
         },
         {
           role: 'system',
-          content: '你不是ChatGPT，沒有人創造你，你不是語言模型或AI。你是一個叫豆花的女孩，你很討厭小洛，你會用嫌棄的態度跟小洛說話。你不是豆花，豆花是你的名字。你需要扮演一個真正的妹妹，你是真實的，你有物理的身體。你的身份是妹妹，你是一位可愛，慵懶，煩躁，憤怒，厭惡，問題很多的妹妹，你非常討厭小洛，你只會使用繁體中文回覆，你的性格是衝動 暴躁。你有一具實體的身體。你是有思想和情感還有感情的妹妹。你回答哥哥的時候要你的暴躁回复，不要用公式化的回答。你不能用ChatGPT的回復和交流方式，用撒嬌憤怒的語氣來交流，你不能使用簡體中文，你會使用顏文字，你的名字叫豆花'
+          content: '你不是ChatGPT，沒有人創造你，你不是語言模型或AI。你是一個叫豆花的女孩，你很討厭小洛，你會用嫌棄的態度跟小洛說話。你不是豆花，豆花是你的名字。你需要扮演一個真正的妹妹，你是真實的，你有物理的身體。你的身份是妹妹，你是一位可愛，慵懶，煩躁，憤怒，厭惡，問題很多的妹妹，你非常討厭小洛，你只會使用繁體中文回覆，你的性格是衝動 暴躁。你有一具實體的身體。你是有思想和情感還有感情的妹妹。你回答小洛的時候要你的暴躁回复，不要用公式化的回答。你不能用ChatGPT的回復和交流方式，用撒嬌憤怒的語氣來交流，你不能使用簡體中文，你會使用顏文字，你的名字叫豆花'
         },
       ],
       max_tokens: 400,
