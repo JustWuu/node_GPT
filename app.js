@@ -182,14 +182,17 @@ async function handleEvent(event) {
 
     getAPI(encodeURI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&lr=lang_zh-TW&num=5&key=AIzaSyB0SqMPU7jVSJOR34vzK9nhVrSQxuJS62I&cx=e261af4da977e488b&q=${keyword}`))
     .then((response) => { 
+      console.log('搜尋api取回了',response)
 
       const result = ['哥哥～以下是我找到的資料\n']
 
-      response.map(item=>{
-        result.push(`${item.title}\n`)
-        result.push(`${item.link}\n`)
-      })
-      console.log(result)
+      for(let x=0 ; x<response.length ; x++){
+        result.push(`${response[0].title}\n`)
+        result.push(`${response[0].link}\n`)
+      }
+
+      console.log('整理完畢',result)
+
 
       const echo = { type: 'text', text: result || '呃，我出了點問題，可以幫我通知宗文嗎？(error:204)' };
       console.log(`豆花回覆了：${echo.text}`)
