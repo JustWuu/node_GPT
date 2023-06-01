@@ -180,7 +180,7 @@ async function handleEvent(event) {
     const keywordReg = new RegExp('搜尋')
     const keyword = message.replace(keywordReg, "")
 
-    getAPI(encodeURI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&lr=lang_zh-TW&num=5&key=AIzaSyB0SqMPU7jVSJOR34vzK9nhVrSQxuJS62I&cx=e261af4da977e488b&q=${keyword}`))
+    getAPI(encodeURI(`https://www.googleapis.com/customsearch/v1?fields=kind,items(title,link)&hl=zh-TW&lr=lang_zh-TW&num=5&key=AIzaSyB0SqMPU7jVSJOR34vzK9nhVrSQxuJS62I&cx=e261af4da977e488b&q=${keyword}`))
     .then((response) => { 
       console.log('搜尋api取回了',response)
 
