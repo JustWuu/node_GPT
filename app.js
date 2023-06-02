@@ -287,12 +287,6 @@ async function handleEvent(event) {
 
   console.log(`豆花回覆了：${echo.text}`)
 
-  let oldBeforeMessage = ''
-  let oldBeforeEcho = ''
-  // 上次的問答
-  let beforeMessage = ''
-  let beforeEcho = ''
-
   if(beforeMessage == ''){
     beforeMessage = message
     beforeEcho = echo.text
