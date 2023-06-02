@@ -251,6 +251,16 @@ async function handleEvent(event) {
     console.log(`豆花回覆了：${echo.text}`)
     // use reply API
     return client.replyMessage(event.replyToken, echo);
+  }else if(event.message.text.indexOf('忘掉剛剛說的') >= 0){
+    // 刪除過去問答 ==================================================================================================
+    oldBeforeMessage = ''
+    oldBeforeEcho = ''
+    beforeMessage = ''
+    beforeEcho = ''
+    const echo = { type: 'text', text: '呃呃...怎麼了嗎？' };
+    console.log(`豆花回覆了：${echo.text}`)
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
   }else{
     // GPT ==================================================================================================
     // 如果沒有請繼續，會把之前的訊息刪掉
