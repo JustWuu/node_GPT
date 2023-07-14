@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const line = require('@line/bot-sdk');
 const { Configuration, OpenAIApi } = require("openai");
-const pushMessage = require("./firebase.js");
+const {pushMessage, pushMoney, getMoney} = require("./firebase.js");
 const getAPI = require("./axios.js");
 
 const configuration = new Configuration({
