@@ -30,10 +30,10 @@ function pushMoney(allMoney, money){
   })
 }
 
-function getMoney(){
-  databse.get(databse.ref(data, `money/`)).then((snapshot) => {
+async function getMoney(){
+  return await databse.get(databse.ref(data, `money/`)).then((snapshot) => {
     if (snapshot.exists()) {
-        console.log(`${this.child} database get ok`)
+        console.log(`database get ok`)
         return snapshot.val();
     } else {
         throw `查無資料`
