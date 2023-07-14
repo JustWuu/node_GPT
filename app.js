@@ -57,7 +57,7 @@ async function handleEvent(event) {
     if(event.message.text.indexOf('家豪') < 0 && event.message.text.indexOf('欠') < 0 && event.message.text.indexOf('錢') < 0){
       // 撈資料
       console.log(`調閱家豪借錢紀錄`)
-      const echo = { type: 'text', text: 'UID識別正確，終止[Product]，目前為[調試模式]' };
+      const echo = { type: 'text', text: '家豪共欠1000新台幣' };
       return client.replyMessage(event.replyToken, echo);
     }else if(event.message.text.indexOf('家豪') < 0 && event.message.text.indexOf('借') < 0 && event.message.text.indexOf('錢') < 0){
       pushMoney(1000, 3000)
