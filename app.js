@@ -54,12 +54,12 @@ let beforeEcho = ''
 async function handleEvent(event) {
   // 判斷管理者輸入命令
   if(event.source.userId =='Uafee7075f6082ab29a1b8fddb52a6fde'){
-    if(event.message.text.indexOf('家豪') < 0 && event.message.text.indexOf('欠') < 0 && event.message.text.indexOf('錢') < 0){
+    if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('欠') > 0 && event.message.text.indexOf('錢') > 0){
       // 撈資料
       console.log(`調閱家豪借錢紀錄`)
       const echo = { type: 'text', text: '家豪共欠1000新台幣' };
       return client.replyMessage(event.replyToken, echo);
-    }else if(event.message.text.indexOf('家豪') < 0 && event.message.text.indexOf('借') < 0 && event.message.text.indexOf('錢') < 0){
+    }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('借') > 0 && event.message.text.indexOf('錢') > 0){
       pushMoney(1000, 3000)
       console.log(`儲存家豪借錢`)
       const echo = { type: 'text', text: '家豪又借錢了' };
