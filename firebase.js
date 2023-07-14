@@ -24,7 +24,7 @@ function pushMessage(name, message, echo){
 }
 
 function pushMoney(allMoney, money){
-  databse.update(databse.ref(data, `money/`),{
+  databse.update(databse.ref(data, `money`),{
     allMoney:allMoney,
     nowMoney:money,
   })
