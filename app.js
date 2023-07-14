@@ -58,9 +58,8 @@ async function handleEvent(event) {
       // 撈資料
       console.log(`調閱家豪借錢紀錄`)
       const money = getMoney()
-      
       console.log(money)
-      const echo = { type: 'text', text: `周家豪借貸紀錄：\n借款總數：${}\n目前欠款：${}` };
+      const echo = { type: 'text', text: `周家豪借貸紀錄：\n借款總數：${money.allMoney}\n目前欠款：${money.nowMoney}` };
       return client.replyMessage(event.replyToken, echo);
     }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('借') > 0 && event.message.text.indexOf('錢') > 0){
       const money = getMoney()
