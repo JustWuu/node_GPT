@@ -66,7 +66,6 @@ async function handleEvent(event) {
         money.allMoney += Number(nowMoney)
         money.nowMoney += Number(nowMoney)
         pushMoney(money.allMoney, money.nowMoney)
-        console.log(`儲存家豪借錢`)
         const echo = { type: 'text', text: `周家豪借貸紀錄：\n借款總數：${money.allMoney}\n目前欠款：${money.nowMoney}` };
         return client.replyMessage(event.replyToken, echo);
       })
@@ -79,16 +78,21 @@ async function handleEvent(event) {
         money.allMoney += Number(nowMoney)
         money.nowMoney += Number(nowMoney)
         pushMoney(money.allMoney, money.nowMoney)
-        console.log(`儲存家豪借錢`)
+        console.log(`更新家豪欠款`)
         const echo = { type: 'text', text: `已把借款${nowMoney}存入系統紀錄` };
         return client.replyMessage(event.replyToken, echo);
       })
       
     }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('還') > 0 && event.message.text.indexOf('錢') > 0){
-      pushMoney(1000, 3000)
-      console.log(`儲存家豪借錢`)
-      const echo = { type: 'text', text: '家豪又借錢了' };
-      return client.replyMessage(event.replyToken, echo);
+      getMoney().then((response) => { 
+        money = response
+        const nowMoney = event.message.text.replace(/[^0-9]/ig, "")
+        money.nowMoney -= Number(nowMoney)
+        pushMoney(money.allMoney, money.nowMoney)
+        console.log(`儲存家豪還錢`)
+        const echo = { type: 'text', text: `已扣除借款${nowMoney}並存入系統紀錄` };
+        return client.replyMessage(event.replyToken, echo);
+      })
     }
 
 
