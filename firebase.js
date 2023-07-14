@@ -32,7 +32,7 @@ function pushMoney(allMoney, money){
 
 async function getMoney(){
   return await databse.get(databse.ref(data, `money`)).then((snapshot) => {
-    console.log(snapshot)
+    console.log(snapshot.val())
     if (snapshot.exists()) {
         console.log(`database get ok`)
         return snapshot.val();
