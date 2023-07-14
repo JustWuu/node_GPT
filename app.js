@@ -57,14 +57,21 @@ async function handleEvent(event) {
     if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('欠') > 0 && event.message.text.indexOf('錢') > 0){
       // 撈資料
       console.log(`調閱家豪借錢紀錄`)
-      const money = {}
-      getMoney().then(res =>{
-        money = res
-    })
-    console.log(money)
-      const echo = { type: 'text', text: '家豪共欠1000新台幣' };
+      const money = getMoney()
+      
+      console.log(money)
+      const echo = { type: 'text', text: `周家豪借貸紀錄：\n借款總數：${}\n目前欠款：${}` };
       return client.replyMessage(event.replyToken, echo);
     }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('借') > 0 && event.message.text.indexOf('錢') > 0){
+      const money = getMoney()
+      const nowMoney = event.message.text.replace(/[^0-9]/ig, "")
+      money.allMoney += Number(nowMoney)
+      money.nowMoney += Number(nowMoney)
+      pushMoney(money.allMoney, money.nowMoney)
+      console.log(`儲存家豪借錢`)
+      const echo = { type: 'text', text: `已把借款${nowMoney}存入系統紀錄` };
+      return client.replyMessage(event.replyToken, echo);
+    }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('還') > 0 && event.message.text.indexOf('錢') > 0){
       pushMoney(1000, 3000)
       console.log(`儲存家豪借錢`)
       const echo = { type: 'text', text: '家豪又借錢了' };
