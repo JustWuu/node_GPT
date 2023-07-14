@@ -49,6 +49,8 @@ let beforeEcho = ''
 
 // 文字輸入後>判斷當前模式>判斷輸入者>依當前模式讀取文字>返回輸出
 
+// 錢錢
+let money = {} 
 
 // event handler
 async function handleEvent(event) {
@@ -57,14 +59,21 @@ async function handleEvent(event) {
     if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('欠') > 0 && event.message.text.indexOf('錢') > 0){
       // 撈資料
       console.log(`調閱家豪借錢紀錄`)
-      const money = getMoney()
-      console.log(money)
-      const echo = { type: 'text', text: `周家豪借貸紀錄：\n借款總數：${money.allMoney}\n目前欠款：${money.nowMoney}` };
-      return client.replyMessage(event.replyToken, echo);
-    }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('借') > 0 && event.message.text.indexOf('錢') > 0){
-      const money = {}
+      
       getMoney().then((response) => { 
-        console.log(response)
+        money = response
+        const nowMoney = event.message.text.replace(/[^0-9]/ig, "")
+        money.allMoney += Number(nowMoney)
+        money.nowMoney += Number(nowMoney)
+        pushMoney(money.allMoney, money.nowMoney)
+        console.log(`儲存家豪借錢`)
+        const echo = { type: 'text', text: `周家豪借貸紀錄：\n借款總數：${money.allMoney}\n目前欠款：${money.nowMoney}` };
+        return client.replyMessage(event.replyToken, echo);
+      })
+
+    }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('借') > 0 && event.message.text.indexOf('錢') > 0){
+      
+      getMoney().then((response) => { 
         money = response
         const nowMoney = event.message.text.replace(/[^0-9]/ig, "")
         money.allMoney += Number(nowMoney)
