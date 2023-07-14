@@ -20,9 +20,26 @@ function pushMessage(name, message, echo){
     lineName:name,
     message:message,
     echo:echo,
-  })
-  
+  }) 
 }
 
-module.exports = pushMessage
+function pushMoney(allMoney, money){
+  databse.update(databse.ref(data, `money/`),{
+    allMoney:allMoney,
+    nowMoney:money,
+  })
+}
+
+function getMoney(){
+  databse.get(databse.ref(data, `money/`)).then((snapshot) => {
+    if (snapshot.exists()) {
+        console.log(`${this.child} database get ok`)
+        return snapshot.val();
+    } else {
+        throw `查無資料`
+    }
+    })
+}
+
+module.exports = {pushMessage, pushMoney, getMoney}
 
