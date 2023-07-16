@@ -56,7 +56,7 @@ let money = {}
 async function handleEvent(event) {
   // 判斷管理者輸入命令
   if(event.source.userId =='Uafee7075f6082ab29a1b8fddb52a6fde'){
-    if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('欠') > 0 && event.message.text.indexOf('錢') > 0){
+    if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('欠') > 0 && (event.message.text.indexOf('錢') > 0 || event.message.text.indexOf('元') > 0)){
       // 撈資料
       console.log(`調閱家豪借錢紀錄`)
       
@@ -70,7 +70,7 @@ async function handleEvent(event) {
         return client.replyMessage(event.replyToken, echo);
       })
 
-    }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('借') > 0 && event.message.text.indexOf('錢') > 0){
+    }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('借') > 0 && (event.message.text.indexOf('錢') > 0 || event.message.text.indexOf('元') > 0)){
       
       getMoney().then((response) => { 
         money = response
@@ -83,7 +83,7 @@ async function handleEvent(event) {
         return client.replyMessage(event.replyToken, echo);
       })
       
-    }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('還') > 0 && event.message.text.indexOf('錢') > 0){
+    }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('還') > 0 && (event.message.text.indexOf('錢') > 0 || event.message.text.indexOf('元') > 0)){
       getMoney().then((response) => { 
         money = response
         const nowMoney = event.message.text.replace(/[^0-9]/ig, "")
