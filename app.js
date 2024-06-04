@@ -60,7 +60,7 @@ async function handleEvent(event) {
       // 撈資料
       console.log(`調閱家豪借錢紀錄`)
       
-      getMoney().then((response) => { 
+      return getMoney().then((response) => { 
         money = response
         const nowMoney = event.message.text.replace(/[^0-9]/ig, "")
         money.allMoney += Number(nowMoney)
@@ -72,7 +72,7 @@ async function handleEvent(event) {
 
     }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('借') > 0 && (event.message.text.indexOf('錢') > 0 || event.message.text.indexOf('元') > 0)){
       
-      getMoney().then((response) => { 
+      return getMoney().then((response) => { 
         money = response
         const nowMoney = event.message.text.replace(/[^0-9]/ig, "")
         money.allMoney += Number(nowMoney)
@@ -84,7 +84,7 @@ async function handleEvent(event) {
       })
       
     }else if(event.message.text.indexOf('家豪') > 0 && event.message.text.indexOf('還') > 0 && (event.message.text.indexOf('錢') > 0 || event.message.text.indexOf('元') > 0)){
-      getMoney().then((response) => { 
+      return getMoney().then((response) => { 
         money = response
         const nowMoney = event.message.text.replace(/[^0-9]/ig, "")
         money.nowMoney -= Number(nowMoney)
