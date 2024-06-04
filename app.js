@@ -315,7 +315,7 @@ async function handleEvent(event) {
 
   // 回應 *********************************************************************************************************
   const { data } = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
+    model: "gpt-4o",
     messages: [
       // 固定人格
       {
